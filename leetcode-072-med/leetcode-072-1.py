@@ -11,7 +11,7 @@ class Solution:
         def getSteps(row, col):
             if (steps[row][col] == -1):
                 if (word1[row] == word2[col]):
-                    steps[row][col] = getSteps(row + 1, col + 1);
+                    steps[row][col] = getSteps(row + 1, col + 1)
                 else:
                     steps[row][col] = 1 + min(getSteps(row + 1, col), getSteps(row, col + 1), getSteps(row + 1, col + 1))
             return steps[row][col]

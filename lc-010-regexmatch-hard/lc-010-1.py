@@ -8,44 +8,47 @@ class Solution:
         def isModifier(expr_i):
             return p[expr_i + 1] == "*" if expr_i + 1 < len(p) else False
 
+        def tokenize():
+            expr_i = 0
+            tokens = []
+            while expr_i < len(p):
+                expr_char = p[expr_i]
+                if isModifier(expr_i):
+                    expr_char = expr_char + "*"
+                    expr_i += 1
+                tokens.append(expr_char)
+                expr_i += 1 
 
-        temp_index = 0
-        expr_index = 0
-        str_index = 0
-        star_modifier = ''
+            return tokens
+        def isStar(expr):
+            return expr[0] if len(expr) > 1 else None
+        
+        tokens = tokenize()
+        dp = [[False for _ in range(len(tokens) + 1)] for _ in range(len(s) + 1)]
+        dp[0][0] = True if isStar(tokens[0]) else matchChar(tokens[0], s[0]) 
 
-        while str_index < len(s):
-            str_char = s[str_index]
-
-            if star_modifier:
-                temp_char = p[temp_index]
-                if isModifier(temp_index):
-                    star_modifier = temp_char
-                    temp_index = expr_index + 1
-                else:
-                    if matchChar(temp_char, str_char):
-                        if matchChar(star_modifier, str_char):
-                            temp_index += 1
-                        else:
-                            pass
-                    else:
-                        return False            
+        for i in range(len(s) + 1):
+            for j in range(len(tokens)):
                 
-            else:
-                expr_char = p[expr_index]
-                if isModifier(expr_index):
-                    star_modifier = expr_char
-                    expr_index += 1
-                    temp_index = expr_index + 1
-                    str_index -= 1
-
-                elif not matchChar(expr_char, str_char):
-                    return False
                 
-                expr_index += 1
-                str_index += 1
+                if dp[i][j]:
+                    
+                    #border condition
+                    if i == len(s):
+                        if isStar(tokens[j]):
+                            dp[i][j+1] = True
+                        continue
 
-        return expr_index == len(p)
-
-solution = Solution()
-print(solution.isMatch('aaa', 'aa..'))
+                    str_char = s[i]
+                    expr_char = tokens[j]
+                
+                    if matchChar(expr_char[0], str_char):
+                        dp[i+1][j+1] = True
+                    if isStar(expr_char):
+                        dp[i][j+1] = True
+                    if isStar(expr_char) and matchChar(expr_char[0], str_char):
+                        dp[i+1][j] = True
+        for row in dp:
+            print(row)
+        return dp[len(s)][len(tokens)]
+        

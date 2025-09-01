@@ -8,6 +8,7 @@ class Solution:
         while True:
             i1 = (low + high) // 2
             i2 = half_length - i1
+            
             short_cur = -float("inf") if i1 == 0 else short_list[i1 - 1]
             long_cur = -float("inf") if i2 == 0 else long_list[i2 - 1]
             short_next = float("inf") if i1 >= len(short_list) else short_list[i1]

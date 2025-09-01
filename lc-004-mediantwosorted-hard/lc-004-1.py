@@ -1,14 +1,13 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         short_list, long_list = (nums1, nums2) if len(nums1) <= len(nums2) else (nums2, nums1)
-
         low = 0
         high = len(short_list)
         half_length = (len(short_list) + len(long_list)) // 2
         while True:
             i1 = (low + high) // 2
             i2 = half_length - i1
-            
+      
             short_cur = -float("inf") if i1 == 0 else short_list[i1 - 1]
             long_cur = -float("inf") if i2 == 0 else long_list[i2 - 1]
             short_next = float("inf") if i1 >= len(short_list) else short_list[i1]

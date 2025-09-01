@@ -13,8 +13,6 @@ class Solution:
         visited = [[0 for _ in range(target_len+1)] for _ in range(input_len+1)]
         printMatrix(visited)
 
-        
-        
         #adds node to fringe, unless already visited
         def addNode(node):
             _weight = node[0]

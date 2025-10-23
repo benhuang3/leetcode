@@ -5,6 +5,5 @@ class Solution:
         for i in range(0, len(xs)):
             if xs[i] != xs[len(xs) - 1 - i]:
                 return False
-
         return True
         

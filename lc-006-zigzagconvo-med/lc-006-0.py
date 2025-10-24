@@ -1,9 +1,8 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1:
+        if numRows == 1 or numRows >= len(s):
             return s
-        if numRows >= len(s):
-            return s
+        
         res = ""
         
         for cur_row in range(0, numRows):
